@@ -7,3 +7,13 @@
 .pillars .icon{width:78px;height:78px;margin-bottom:20px;border:1px solid rgba(169,132,80,.65);border-radius:50%;display:grid;place-items:center;font-size:3.15rem;line-height:1;background:rgba(255,255,255,.28);box-shadow:0 8px 24px rgba(76,54,30,.08)}
 .pillars strong{font-size:.72rem;line-height:1.55}
 @media(max-width:560px){.pillars{gap:14px}.pillars>div{min-height:165px;padding:22px 8px}.pillars .icon{width:66px;height:66px;font-size:2.65rem;margin-bottom:16px}.pillars strong{font-size:.63rem}}
+/* Nouvelle composition éditoriale du concept */
+.pillars{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;text-align:left}
+.pillars .pillar{position:relative;min-height:230px;padding:30px 28px 25px;align-items:flex-start;justify-content:flex-start;border:1px solid rgba(109,75,50,.18);border-top:1px solid rgba(109,75,50,.18);background:rgba(255,255,255,.22);overflow:hidden}
+.pillars .pillar:hover{transform:translateY(-4px);background:rgba(255,255,255,.42);border-color:rgba(169,132,80,.48);box-shadow:0 15px 35px rgba(76,54,30,.08)}
+.pillar-number{position:absolute;right:22px;top:18px;font:italic 1rem Georgia,serif;color:rgba(169,132,80,.65);letter-spacing:.08em}
+.pillars .icon{width:58px;height:58px;margin:0 0 24px;border:0;border-radius:0;background:none;box-shadow:none;display:block;color:var(--or)}
+.pillars .icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+.pillars .pillar strong{font:400 1.35rem/1.15 Georgia,serif;text-transform:none;letter-spacing:.01em;color:var(--texte)}
+.pillars .pillar p{margin:12px 0 0;font-size:.76rem;line-height:1.55;color:#6f655a;max-width:210px}
+@media(max-width:560px){.pillars{grid-template-columns:1fr}.pillars .pillar{min-height:205px;padding:26px}.pillars .icon{width:52px;height:52px;margin-bottom:20px}.pillars .pillar strong{font-size:1.2rem}}
