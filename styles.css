@@ -16,3 +16,7 @@
 #concept .pillars strong{font-size:.69rem;line-height:1.5}
 @media(max-width:900px){#concept .concept-grid{grid-template-columns:1fr;gap:55px}#concept .concept-grid>div:first-child{padding-right:0}#concept .concept-grid>div:first-child:after{display:none}#concept .pillars>div:nth-child(3):before{display:none}}
 @media(max-width:560px){#concept .pillars>div{padding:20px 10px}#concept .pillars>div:before{display:none}#concept .icon{font-size:2.25rem}}
+/* Lecture des portraits éditoriaux */
+.prose h3{font-size:1.45rem;line-height:1.35;margin:1.4em 0 .7em;color:var(--brun)}
+.prose hr{border:0;border-top:1px solid rgba(169,132,80,.4);width:90px;margin:55px 0}
+.prose strong{font-weight:700;color:#17130f}
