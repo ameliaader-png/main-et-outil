@@ -20,3 +20,16 @@
 .prose h3{font-size:1.45rem;line-height:1.35;margin:1.4em 0 .7em;color:var(--brun)}
 .prose hr{border:0;border-top:1px solid rgba(169,132,80,.4);width:90px;margin:55px 0}
 .prose strong{font-weight:700;color:#17130f}
+.prose{max-width:1180px;width:58vw;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.15rem,1.35vw,1.7rem);line-height:1.62}
+.prose p{max-width:1180px;margin:0 0 1.55em}
+.prose strong{font-weight:inherit;color:inherit}
+.prose>.quote:first-child{max-width:none;margin:0 0 190px;padding:8px 0 8px 38px;border:0;border-left:2px solid var(--or);font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.8rem,2.3vw,2.9rem);font-style:italic;font-weight:400;line-height:1.2;letter-spacing:-.015em;color:var(--texte)}
+.prose>.quote:first-child:before{content:none}
+.prose>.quote:first-child+hr{display:none}
+.prose h2{position:relative;max-width:1180px;margin:0 0 .55em;padding:0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.8rem,4.25vw,5.5rem);font-weight:400;line-height:1.04;letter-spacing:-.03em;color:var(--texte)}
+.prose h2:before{content:none}
+.prose h2:not(:first-of-type){margin-top:1.45em}
+.prose hr{display:none}
+@media(max-width:1200px){.prose{width:calc(100% - 96px)}}
+@media(max-width:900px){.prose{width:calc(100% - 48px)}.prose>.quote:first-child{margin-bottom:85px;padding-left:28px}.prose h2{font-size:clamp(2.75rem,9vw,5rem)}}
+@media(max-width:560px){.prose{width:calc(100% - 28px);font-size:1.08rem}.prose>.quote:first-child{margin-bottom:60px;padding:5px 0 5px 20px;font-size:1.75rem}.prose h2{font-size:2.65rem}}
