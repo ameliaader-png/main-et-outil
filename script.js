@@ -6,3 +6,39 @@ function card(a){return `<a class="portrait-card ${a.cls}" style="background-ima
 function initGallery(){const track=document.querySelector('.gallery-track');if(!track)return;document.querySelector('.gallery-prev')?.addEventListener('click',()=>track.scrollBy({left:-track.clientWidth*.82,behavior:'smooth'}));document.querySelector('.gallery-next')?.addEventListener('click',()=>track.scrollBy({left:track.clientWidth*.82,behavior:'smooth'}))}
 function saveSubmission(form,type){let d=Object.fromEntries(new FormData(form).entries());d.type=type;d.date=new Date().toISOString();let all=JSON.parse(localStorage.getItem('mainetoutil-submissions')||'[]');all.unshift(d);localStorage.setItem('mainetoutil-submissions',JSON.stringify(all));return d}document.querySelectorAll('form[data-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;let d=saveSubmission(form,form.dataset.form),subject=encodeURIComponent(`${d.type==='candidature'?'Candidature':'Message'} Main & Outil — ${d.nom}`),body=encodeURIComponent(Object.entries(d).map(([k,v])=>`${k}: ${v}`).join('\n'));form.querySelector('[data-message]').textContent='Votre demande est enregistrée sur cet appareil. Votre messagerie va s’ouvrir pour confirmer l’envoi.';setTimeout(()=>location.href=`mailto:contact@mainetoutil.com?subject=${subject}&body=${body}`,300)}));
 function renderAdmin(){let root=document.querySelector('#admin-list');if(!root)return;let all=JSON.parse(localStorage.getItem('mainetoutil-submissions')||'[]');root.innerHTML=all.length?all.map((x,i)=>`<article class="admin-card"><span class="eyebrow">${x.type} · ${new Date(x.date).toLocaleString('fr-FR')}</span><h3>${x.nom}</h3><p>${x.email||''}</p><details><summary>Voir les informations</summary>${Object.entries(x).map(([k,v])=>`<p><strong>${k}</strong><br>${String(v).replaceAll('<','&lt;')}</p>`).join('')}</details><button class="btn remove" data-i="${i}">Supprimer</button></article>`).join(''):'<div class="empty">Aucune demande enregistrée sur cet appareil.</div>';root.querySelectorAll('.remove').forEach(b=>b.onclick=()=>{all.splice(+b.dataset.i,1);localStorage.setItem('mainetoutil-submissions',JSON.stringify(all));renderAdmin()})}renderAdmin();
+
+// Envoi direct des formulaires depuis le site, sans ouvrir la messagerie du visiteur.
+document.querySelectorAll('form[data-form]').forEach(form=>form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  if(!form.reportValidity())return;
+  const button=form.querySelector('button[type="submit"]');
+  const message=form.querySelector('[data-message]');
+  const initialLabel=button.textContent;
+  const data=Object.fromEntries(new FormData(form).entries());
+  data._subject=`${form.dataset.form==='candidature'?'Nouvelle candidature':'Nouveau message'} Main & Outil — ${data.nom}`;
+  data._template='table';
+  data.formulaire=form.dataset.form;
+  button.disabled=true;
+  button.textContent='Envoi en cours…';
+  message.classList.remove('error');
+  message.textContent='';
+  try{
+    const response=await fetch('https://formsubmit.co/ajax/contact@mainetoutil.com',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    });
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok||result.success===false)throw new Error('Envoi refusé');
+    saveSubmission(form,form.dataset.form);
+    form.reset();
+    message.textContent=form.dataset.form==='candidature'?'Votre candidature a bien été envoyée. Merci pour votre confiance.':'Votre message a bien été envoyé. Nous vous répondrons prochainement.';
+  }catch(error){
+    message.classList.add('error');
+    message.textContent='L’envoi n’a pas abouti. Réessayez dans quelques instants ou écrivez à contact@mainetoutil.com.';
+  }finally{
+    button.disabled=false;
+    button.textContent=initialLabel;
+  }
+},true));

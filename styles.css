@@ -33,3 +33,5 @@
 @media(max-width:1200px){.prose{width:calc(100% - 96px)}}
 @media(max-width:900px){.prose{width:calc(100% - 48px)}.prose>.quote:first-child{margin-bottom:85px;padding-left:28px}.prose h2{font-size:clamp(2.75rem,9vw,5rem)}}
 @media(max-width:560px){.prose{width:calc(100% - 28px);font-size:1.08rem}.prose>.quote:first-child{margin-bottom:60px;padding:5px 0 5px 20px;font-size:1.75rem}.prose h2{font-size:2.65rem}}
+.success.error{color:#8a241c}
+button:disabled{cursor:wait;opacity:.62}
