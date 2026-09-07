@@ -1,4 +1,4 @@
-# Main & Outil
+# Mains & Outils
 
 Prototype complet du média de valorisation des artisans d’art.
 
